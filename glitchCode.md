@@ -3,7 +3,7 @@ Glitch Code Assignment
 
 [Image from @greatartbot](https://twitter.com/greatartbot/status/417701649071616000/photo/1)
 
-
+...
 Set window size to 500 by 500 pixels
 
 Set the background of the window to beige
@@ -33,4 +33,4 @@ While the COUNTER variable is greater than 0
     subtract 1 from COUNTER
 
 Repeat this loop until the While statement is false
- 
+...
