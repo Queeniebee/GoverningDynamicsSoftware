@@ -44,7 +44,7 @@ void loop()
     sliderValue[i] = map(sliderValue[i], 0, 1023, 0, 179);     // scale it to use it with the servo (value between 0 and 180)    
   }
   sideAssignKeys();
-  for(int i = 0; i < 36; i++){
+  for(int i = 0; i < 6; i++){
     stack[i]  = dictionary(sliderValue);
   }
 
