@@ -39,7 +39,7 @@ void setup()
 
 void loop() 
 { 
-  for(int i = 0; i < NUMBER_OF_BOXES; i++){
+  for(int i = 0; i < 2; i++){
     sliderValue[i] = analogRead(sliderpin);            // reads the value of the potentiometer (value between 0 and 1023) 
     sliderValue[i] = map(sliderValue[i], 0, 1023, 0, 179);     // scale it to use it with the servo (value between 0 and 180)    
   }
