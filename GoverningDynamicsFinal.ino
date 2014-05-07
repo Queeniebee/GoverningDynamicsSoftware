@@ -53,7 +53,7 @@ void loop()
   }
   sideAssignKeys();
   for(int i = 0; i < 6; i++){
-    stack[i]  = dictionary(va1, val2);
+    stack[i]  = dictionary(val1, val2);
   }
 
   myservo1.write(*stack);  // need to add and remove from this array 
@@ -66,12 +66,12 @@ void loop()
 } 
 
 void sideAssignKeys(){
-    box.side1 = addition(sliderValue[0], sliderValue[1]);
-    box.side2 = subtraction(sliderValue[0], sliderValue[1]);
-    box.side3 = increment(sliderValue[0], sliderValue[1]);
-    box.side4 = decrement(sliderValue[0], sliderValue[1]);
-    box.side5 = saveState(sliderValue[0], sliderValue[1]);
-    box.side6 = clearState(sliderValue[0], sliderValue[1]);
+    box.side1 = addition(val1, val2);
+    box.side2 = subtraction(val1, val2);
+    box.side3 = increment(val1, val2);
+    box.side4 = decrement(val1, val2);
+    box.side5 = saveState(val1, val2);
+    box.side6 = clearState(val1, val2);
 }
 //Operations
 int addition(int a, int b){ 
