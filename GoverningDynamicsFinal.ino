@@ -4,9 +4,11 @@
 #include "sides.h"
 
 #define NUMBER_OF_BOXES 4
-Servo myservo;  // create servo object to control a servo 
+Servo myservo1, myservo2, myservo3,  myservo4;
+
 int sliderpin = 0;  // analog pin used to connect the slider
-int sliderValue[2]; // 2-item array to act as two boxes; value from the analog pin 
+int sliderValue[2]; // 2-item array to act as two boxes; value from the analog pin
+int tofunction1, tofunction2;
 int stack[36];
 
 struct sides {
@@ -29,12 +31,15 @@ struct sides {
 
 void setup() 
 { 
-  myservo.attach(9);  // attaches the servo on pin 9 to the servo object 
+  myservo1.attach(8);
+  myservo2.attach(7);
+  myservo3.attach(6);
+  myservo4.attach(5);
 } 
 
 void loop() 
 { 
-  for(int i = 0; i < 2; i++){
+  for(int i = 0; i < NUMBER_OF_BOXES; i++){
     sliderValue[i] = analogRead(sliderpin);            // reads the value of the potentiometer (value between 0 and 1023) 
     sliderValue[i] = map(sliderValue[i], 0, 1023, 0, 179);     // scale it to use it with the servo (value between 0 and 180)    
   }
@@ -42,12 +47,13 @@ void loop()
   for(int i = 0; i < 36; i++){
     stack[i]  = dictionary(sliderValue);
   }
-  //  stackArray[&stack];
-  //  for(int i = 0; i < 36; i++){
-  //    stack[i] = box[0]
-  //  
-  //  }
-  myservo.write(*stack);  // sets the servo position according to the scaled value 
+
+  myservo1.write(*stack);  // need to add and remove from this array 
+    //delay(15);                            
+  myservo2.write(*stack);  //delay(15);                            
+  myservo3.write(*stack);  //delay(15);                            
+  myservo4.write(*stack);  //delay(15);                            
+
   delay(15);                            
 } 
 
@@ -129,4 +135,4 @@ int dictionary(int slider[]){
       } else return 0;
   }
   
-}
+}  
