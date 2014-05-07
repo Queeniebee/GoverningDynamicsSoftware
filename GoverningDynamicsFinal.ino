@@ -8,7 +8,7 @@ Servo myservo1, myservo2, myservo3,  myservo4;
 
 int sliderpin = 0;  // analog pin used to connect the slider
 int sliderValue[2]; // 2-item array to act as two boxes; value from the analog pin
-int tofunction1, tofunction2;
+int val1, val2;
 int stack[6];
 
 struct sides {
@@ -41,11 +41,19 @@ void loop()
 { 
   for(int i = 0; i < 2; i++){
     sliderValue[i] = analogRead(sliderpin);            // reads the value of the potentiometer (value between 0 and 1023) 
-    sliderValue[i] = map(sliderValue[i], 0, 1023, 0, 179);     // scale it to use it with the servo (value between 0 and 180)    
+    sliderValue[i] = map(sliderValue[i], 0, 1023, 0, 179);     // scale it to use it with the servo (value between 0 and 180) 
+   val1 = 0; 
+   val2 = 0;
+    if(val1 != sliderValue[i]){
+      val1 = sliderValue[i];
+    } else {
+        val2 = sliderValue[i];
+
+    }
   }
   sideAssignKeys();
   for(int i = 0; i < 6; i++){
-    stack[i]  = dictionary(sliderValue);
+    stack[i]  = dictionary(va1, val2);
   }
 
   myservo1.write(*stack);  // need to add and remove from this array 
@@ -104,31 +112,31 @@ int clearState(int a, int b){
 } //6
 
 
-int dictionary(int slider[]){
-    if(slider[0] > 0){
-      if((slider[0] >= 1 && slider[0] < 30) || (slider[1] >= 1 && slider[1] < 30)){
+int dictionary(int slider0, int slider1){
+    if(slider0 > 0){
+      if((slider0 >= 1 && slider0 < 30) || (slider1 >= 1 && slider1 < 30)){
         box.weight1 = 6;
         return box.side1;
       } 
-      else if((slider[0] >= 30 && slider[0] < 60) || (slider[1] >= 30 && slider[1] < 60)){
+      else if((slider0 >= 30 && slider0 < 60) || (slider1 >= 30 && slider1 < 60)){
         box.weight2 = 5;
         return box.side2;
 
       } 
-      else if((slider[0] >= 60 && slider[0] < 90) || (slider[1] >= 60 && slider[1] < 90)){
+      else if((slider0 >= 60 && slider0 < 90) || (slider1 >= 60 && slider1 < 90)){
         box.weight3 = 4;
         return box.side2;
       } 
-      else if((slider[0] >= 90 && slider[0] < 120) || (slider[1] >= 90 && slider[1] < 120)){
+      else if((slider0 >= 90 && slider0 < 120) || (slider1 >= 90 && slider1 < 120)){
         box.weight4 = 3;
         return box.side4;
       } 
-      else if((slider[0] >= 120 && slider[0] < 150) || (slider[1] >= 120 && slider[1] < 150)){
+      else if((slider0 >= 120 && slider0 < 150) || (slider1 >= 120 && slider1 < 150)){
         box.weight5 = 2;
         return box.side5;
 
       } 
-      else if((slider[0] >= 150 && slider[0] < 180) || (slider[1] >= 150 && slider[1] < 180)){
+      else if((slider0 >= 150 && slider0 < 180) || (slider1 >= 150 && slider1 < 180)){
         box.weight6 = 1;
         return box.side6;
 
