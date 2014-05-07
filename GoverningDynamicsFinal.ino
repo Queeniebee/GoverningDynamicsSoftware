@@ -9,7 +9,7 @@ Servo myservo1, myservo2, myservo3,  myservo4;
 int sliderpin = 0;  // analog pin used to connect the slider
 int sliderValue[2]; // 2-item array to act as two boxes; value from the analog pin
 int tofunction1, tofunction2;
-int stack[36];
+int stack[6];
 
 struct sides {
   int side1;
