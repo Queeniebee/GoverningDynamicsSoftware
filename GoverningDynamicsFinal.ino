@@ -27,10 +27,12 @@ struct sides {
   int weight6;
 
   int function;
-} box;
+} 
+box;
 
 void setup() 
 { 
+  Serial.begin(9600);
   myservo1.attach(8);
   myservo2.attach(7);
   myservo3.attach(6);
@@ -42,23 +44,28 @@ void loop()
   for(int i = 0; i < 2; i++){
     sliderValue[i] = analogRead(sliderpin);            // reads the value of the potentiometer (value between 0 and 1023) 
     sliderValue[i] = map(sliderValue[i], 0, 1023, 0, 179);     // scale it to use it with the servo (value between 0 and 180) 
-   val1 = 0; 
-   val2 = 0;
+    val1 = 0; 
+    val2 = 0;
     if(val1 != sliderValue[i]){
       val1 = sliderValue[i];
-    } else {
-        val2 = sliderValue[i];
+    } 
+    else {
+      val2 = sliderValue[i];
 
     }
   }
   sideAssignKeys();
   for(int i = 0; i < 6; i++){
-    stack[i]  = dictionary(val1, val2);
+    int inputValue = 0;
+    inputValue  = dictionary(val1, val2);
+    stack[i] = inputValue;
   }
 
   myservo1.write(*stack);  // need to add and remove from this array 
-    //delay(15);                            
-  myservo2.write(*stack);  //delay(15);                            
+  //delay(15);                            
+  myservo2.write(*stack);  //delay(15);  
+  Serial.print("To Servo 2: ");  
+  Serial.println(*stack);  
   myservo3.write(*stack);  //delay(15);                            
   myservo4.write(*stack);  //delay(15);                            
 
@@ -66,12 +73,13 @@ void loop()
 } 
 
 void sideAssignKeys(){
-    box.side1 = addition(val1, val2);
-    box.side2 = subtraction(val1, val2);
-    box.side3 = increment(val1, val2);
-    box.side4 = decrement(val1, val2);
-    box.side5 = saveState(val1, val2);
-    box.side6 = clearState(val1, val2);
+  box.side1 = addition(val1, val2);
+  box.side2 = subtraction(val1, val2);
+  box.side3 = increment(val1, val2);
+  box.side4 = decrement(val1, val2);
+  box.side5 = saveState(val1, val2);
+  box.side6 = clearState(val1, val2);
+
 }
 //Operations
 int addition(int a, int b){ 
@@ -113,34 +121,35 @@ int clearState(int a, int b){
 
 
 int dictionary(int slider0, int slider1){
-    if(slider0 > 0){
-      if((slider0 >= 1 && slider0 < 30) || (slider1 >= 1 && slider1 < 30)){
-        box.weight1 = 6;
-        return box.side1;
-      } 
-      else if((slider0 >= 30 && slider0 < 60) || (slider1 >= 30 && slider1 < 60)){
-        box.weight2 = 5;
-        return box.side2;
+  if(slider0 > 0){
+    if((slider0 >= 1 && slider0 < 30) || (slider1 >= 1 && slider1 < 30)){
+      box.weight1 = 6;
+      return box.side1;
+    } 
+    else if((slider0 >= 30 && slider0 < 60) || (slider1 >= 30 && slider1 < 60)){
+      box.weight2 = 5;
+      return box.side2;
+    } 
+    else if((slider0 >= 60 && slider0 < 90) || (slider1 >= 60 && slider1 < 90)){
+      box.weight3 = 4;
+      return box.side2;
+    } 
+    else if((slider0 >= 90 && slider0 < 120) || (slider1 >= 90 && slider1 < 120)){
+      box.weight4 = 3;
+      return box.side4;
+    } 
+    else if((slider0 >= 120 && slider0 < 150) || (slider1 >= 120 && slider1 < 150)){
+      box.weight5 = 2;
+      return box.side5;
 
-      } 
-      else if((slider0 >= 60 && slider0 < 90) || (slider1 >= 60 && slider1 < 90)){
-        box.weight3 = 4;
-        return box.side2;
-      } 
-      else if((slider0 >= 90 && slider0 < 120) || (slider1 >= 90 && slider1 < 120)){
-        box.weight4 = 3;
-        return box.side4;
-      } 
-      else if((slider0 >= 120 && slider0 < 150) || (slider1 >= 120 && slider1 < 150)){
-        box.weight5 = 2;
-        return box.side5;
+    } 
+    else if((slider0 >= 150 && slider0 < 180) || (slider1 >= 150 && slider1 < 180)){
+      box.weight6 = 1;
+      return box.side6;
 
-      } 
-      else if((slider0 >= 150 && slider0 < 180) || (slider1 >= 150 && slider1 < 180)){
-        box.weight6 = 1;
-        return box.side6;
-
-      } else return 0;
+    } 
+    else return 0;
   }
-  
+
 }  
+
